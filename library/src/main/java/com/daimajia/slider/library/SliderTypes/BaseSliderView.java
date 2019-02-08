@@ -1,9 +1,10 @@
 package com.daimajia.slider.library.SliderTypes;
 
 import android.content.Context;
+import android.graphics.ImageDecoder;
 import android.graphics.drawable.Animatable;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.view.View;
 
 import com.daimajia.slider.library.R;

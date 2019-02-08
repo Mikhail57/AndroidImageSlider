@@ -1,5 +1,6 @@
 package com.daimajia.slider.library.Tricks;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
@@ -12,19 +13,20 @@ import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.os.SystemClock;
-import android.support.v4.os.ParcelableCompat;
-import android.support.v4.os.ParcelableCompatCreatorCallbacks;
-import android.support.v4.view.AccessibilityDelegateCompat;
-import android.support.v4.view.KeyEventCompat;
-import android.support.v4.view.MotionEventCompat;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.VelocityTrackerCompat;
-import android.support.v4.view.ViewCompat;
-import android.support.v4.view.ViewConfigurationCompat;
-import android.support.v4.view.accessibility.AccessibilityEventCompat;
-import android.support.v4.view.accessibility.AccessibilityNodeInfoCompat;
-import android.support.v4.view.accessibility.AccessibilityRecordCompat;
-import android.support.v4.widget.EdgeEffectCompat;
+
+import androidx.core.os.ParcelableCompat;
+import androidx.core.os.ParcelableCompatCreatorCallbacks;
+import androidx.core.view.AccessibilityDelegateCompat;
+import androidx.core.view.MotionEventCompat;
+import androidx.core.view.VelocityTrackerCompat;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.ViewConfigurationCompat;
+import androidx.core.view.accessibility.AccessibilityEventCompat;
+import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
+import androidx.core.view.accessibility.AccessibilityRecordCompat;
+import androidx.core.widget.EdgeEffectCompat;
+import androidx.viewpager.widget.PagerAdapter;
+
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.FocusFinder;
@@ -68,9 +70,9 @@ import java.util.Comparator;
  * <p>Here is a more complicated example of ViewPager, using it in conjuction
  * with {@link android.app.ActionBar} tabs.  You can find other examples of using
  * ViewPager in the API 4+ Support Demos and API 13+ Support Demos sample code.
- *
+ * <p>
  * {@sample development/samples/Support13Demos/src/com/example/android/supportv13/app/ActionBarTabsPager.java
- *      complete}
+ * complete}
  */
 
 
@@ -80,7 +82,7 @@ import java.util.Comparator;
  * Thanks to JakeWharton.
  * http://github.com/JakeWharton/NineOldAndroids
  */
-public class ViewPagerEx extends ViewGroup{
+public class ViewPagerEx extends ViewGroup {
     private static final String TAG = "ViewPagerEx";
     private static final boolean DEBUG = false;
 
@@ -94,7 +96,7 @@ public class ViewPagerEx extends ViewGroup{
 
     private static final int MIN_FLING_VELOCITY = 400; // dips
 
-    private static final int[] LAYOUT_ATTRS = new int[] {
+    private static final int[] LAYOUT_ATTRS = new int[]{
             android.R.attr.layout_gravity
     };
 
@@ -112,7 +114,7 @@ public class ViewPagerEx extends ViewGroup{
         float offset;
     }
 
-    private static final Comparator<ItemInfo> COMPARATOR = new Comparator<ItemInfo>(){
+    private static final Comparator<ItemInfo> COMPARATOR = new Comparator<ItemInfo>() {
         @Override
         public int compare(ItemInfo lhs, ItemInfo rhs) {
             return lhs.position - rhs.position;
@@ -308,7 +310,7 @@ public class ViewPagerEx extends ViewGroup{
     private void triggerOnPageChangeEvent(int position) {
         for (OnPageChangeListener eachListener : mOnPageChangeListeners) {
             if (eachListener != null) {
-                InfinitePagerAdapter infiniteAdapter = (InfinitePagerAdapter)mAdapter;
+                InfinitePagerAdapter infiniteAdapter = (InfinitePagerAdapter) mAdapter;
                 if (infiniteAdapter.getRealCount() == 0) {
                     return;
                 }
@@ -320,6 +322,7 @@ public class ViewPagerEx extends ViewGroup{
             mInternalPageChangeListener.onPageSelected(position);
         }
     }
+
     /**
      * A PageTransformer is invoked whenever a visible/attached page is scrolled.
      * This offers an opportunity for the application to apply a custom transformation
@@ -353,7 +356,8 @@ public class ViewPagerEx extends ViewGroup{
      * Used internally to tag special types of child views that should be added as
      * pager decorations by default.
      */
-    interface Decor {}
+    interface Decor {
+    }
 
     public ViewPagerEx(Context context) {
         super(context);
@@ -546,7 +550,7 @@ public class ViewPagerEx extends ViewGroup{
             // We are doing a jump by more than one page.  To avoid
             // glitches, we want to keep all current pages in the view
             // until the scroll ends.
-            for (int i=0; i<mItems.size(); i++) {
+            for (int i = 0; i < mItems.size(); i++) {
                 mItems.get(i).scrolling = true;
             }
         }
@@ -640,7 +644,7 @@ public class ViewPagerEx extends ViewGroup{
             if (mSetChildrenDrawingOrderEnabled == null) {
                 try {
                     mSetChildrenDrawingOrderEnabled = ViewGroup.class.getDeclaredMethod(
-                            "setChildrenDrawingOrderEnabled", new Class[] { Boolean.TYPE });
+                            "setChildrenDrawingOrderEnabled", new Class[]{Boolean.TYPE});
                 } catch (NoSuchMethodException e) {
                     Log.e(TAG, "Can't find setChildrenDrawingOrderEnabled", e);
                 }
@@ -966,7 +970,7 @@ public class ViewPagerEx extends ViewGroup{
         final int pageLimit = mOffscreenPageLimit;
         final int startPos = Math.max(0, mCurItem - pageLimit);
         final int N = mAdapter.getCount();
-        final int endPos = Math.min(N-1, mCurItem + pageLimit);
+        final int endPos = Math.min(N - 1, mCurItem + pageLimit);
 
         if (N != mExpectedAdapterCount) {
             String resName;
@@ -1074,7 +1078,7 @@ public class ViewPagerEx extends ViewGroup{
 
         if (DEBUG) {
             Log.i(TAG, "Current page list:");
-            for (int i=0; i<mItems.size(); i++) {
+            for (int i = 0; i < mItems.size(); i++) {
                 Log.i(TAG, "#" + i + ": page " + mItems.get(i).position);
             }
         }
@@ -1105,7 +1109,7 @@ public class ViewPagerEx extends ViewGroup{
             View currentFocused = findFocus();
             ItemInfo ii = currentFocused != null ? infoForAnyChild(currentFocused) : null;
             if (ii == null || ii.position != mCurItem) {
-                for (int i=0; i<getChildCount(); i++) {
+                for (int i = 0; i < getChildCount(); i++) {
                     View child = getChildAt(i);
                     ii = infoForChild(child);
                     if (ii != null && ii.position == mCurItem) {
@@ -1291,7 +1295,7 @@ public class ViewPagerEx extends ViewGroup{
             return;
         }
 
-        SavedState ss = (SavedState)state;
+        SavedState ss = (SavedState) state;
         super.onRestoreInstanceState(ss.getSuperState());
 
         if (mAdapter != null) {
@@ -1340,7 +1344,7 @@ public class ViewPagerEx extends ViewGroup{
     }
 
     ItemInfo infoForChild(View child) {
-        for (int i=0; i<mItems.size(); i++) {
+        for (int i = 0; i < mItems.size(); i++) {
             ItemInfo ii = mItems.get(i);
             if (mAdapter.isViewFromObject(child, ii.object)) {
                 return ii;
@@ -1351,11 +1355,11 @@ public class ViewPagerEx extends ViewGroup{
 
     ItemInfo infoForAnyChild(View child) {
         ViewParent parent;
-        while ((parent=child.getParent()) != this) {
+        while ((parent = child.getParent()) != this) {
             if (parent == null || !(parent instanceof View)) {
                 return null;
             }
-            child = (View)parent;
+            child = (View) parent;
         }
         return infoForChild(child);
     }
@@ -1765,7 +1769,7 @@ public class ViewPagerEx extends ViewGroup{
             }
         }
         mPopulatePending = false;
-        for (int i=0; i<mItems.size(); i++) {
+        for (int i = 0; i < mItems.size(); i++) {
             ItemInfo ii = mItems.get(i);
             if (ii.scrolling) {
                 needPopulate = true;
@@ -1785,6 +1789,7 @@ public class ViewPagerEx extends ViewGroup{
         return (x < mGutterSize && dx > 0) || (x > getWidth() - mGutterSize && dx < 0);
     }
 
+    @SuppressLint("WrongConstant")
     private void enableLayers(boolean enable) {
         final int childCount = getChildCount();
         for (int i = 0; i < childCount; i++) {
@@ -1839,9 +1844,9 @@ public class ViewPagerEx extends ViewGroup{
                  */
 
                 /*
-                * Locally do absolute value. mLastMotionY is set to the y value
-                * of the down event.
-                */
+                 * Locally do absolute value. mLastMotionY is set to the y value
+                 * of the down event.
+                 */
                 final int activePointerId = mActivePointerId;
                 if (activePointerId == INVALID_POINTER) {
                     // If we don't have a valid id, the touch down wasn't on content.
@@ -1985,7 +1990,8 @@ public class ViewPagerEx extends ViewGroup{
                     final float xDiff = Math.abs(x - mLastMotionX);
                     final float y = MotionEventCompat.getY(ev, pointerIndex);
                     final float yDiff = Math.abs(y - mLastMotionY);
-                    if (DEBUG) Log.v(TAG, "Moved x to " + x + "," + y + " diff=" + xDiff + "," + yDiff);
+                    if (DEBUG)
+                        Log.v(TAG, "Moved x to " + x + "," + y + " diff=" + xDiff + "," + yDiff);
                     if (xDiff > mTouchSlop && xDiff > yDiff) {
                         if (DEBUG) Log.v(TAG, "Starting drag!");
                         mIsBeingDragged = true;
@@ -2516,9 +2522,9 @@ public class ViewPagerEx extends ViewGroup{
                     if (Build.VERSION.SDK_INT >= 11) {
                         // The focus finder had a bug handling FOCUS_FORWARD and FOCUS_BACKWARD
                         // before Android 3.0. Ignore the tab key on those devices.
-                        if (KeyEventCompat.hasNoModifiers(event)) {
+                        if (event.hasNoModifiers()) {
                             handled = arrowScroll(FOCUS_FORWARD);
-                        } else if (KeyEventCompat.hasModifiers(event, KeyEvent.META_SHIFT_ON)) {
+                        } else if (event.hasModifiers(KeyEvent.META_SHIFT_ON)) {
                             handled = arrowScroll(FOCUS_BACKWARD);
                         }
                     }
@@ -2622,15 +2628,15 @@ public class ViewPagerEx extends ViewGroup{
 
     boolean pageLeft() {
         if (mCurItem > 0) {
-            setCurrentItem(mCurItem-1, true);
+            setCurrentItem(mCurItem - 1, true);
             return true;
         }
         return false;
     }
 
     boolean pageRight() {
-        if (mAdapter != null && mCurItem < (mAdapter.getCount()-1)) {
-            setCurrentItem(mCurItem+1, true);
+        if (mAdapter != null && mCurItem < (mAdapter.getCount() - 1)) {
+            setCurrentItem(mCurItem + 1, true);
             return true;
         }
         return false;
@@ -2815,13 +2821,15 @@ public class ViewPagerEx extends ViewGroup{
                         setCurrentItem(mCurItem + 1);
                         return true;
                     }
-                } return false;
+                }
+                return false;
                 case AccessibilityNodeInfoCompat.ACTION_SCROLL_BACKWARD: {
                     if (canScrollHorizontally(-1)) {
                         setCurrentItem(mCurItem - 1);
                         return true;
                     }
-                } return false;
+                }
+                return false;
             }
             return false;
         }
@@ -2836,6 +2844,7 @@ public class ViewPagerEx extends ViewGroup{
         public void onChanged() {
             dataSetChanged();
         }
+
         @Override
         public void onInvalidated() {
             dataSetChanged();
