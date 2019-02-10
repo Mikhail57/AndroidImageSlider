@@ -20,7 +20,7 @@ And there are many kinds of amazing animations you can choose. :-D
 
 #### Gradle
 
-Add it in your root build.gradle at the end of repositories:
+1. Add it in your root build.gradle at the end of repositories:
 
 ```groovy
 allprojects {
@@ -31,11 +31,11 @@ allprojects {
 }
 ```
 
-Step 2. Add the dependency
+2. Add the dependency
 
 ```groovy
 dependencies {
-    implementation 'com.github.Mikhail57:AndroidImageSlider:1.1.6-beta'
+    implementation 'com.github.Mikhail57:AndroidImageSlider:1.1.6'
 }
 ```
 
