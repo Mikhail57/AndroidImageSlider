@@ -1,4 +1,4 @@
-# Android Image Slider [![Build Status](https://travis-ci.org/chan32167/AndroidImageSlider.svg)](https://travis-ci.org/chan32167/AndroidImageSlider)
+# Android Image Slider [![](https://jitpack.io/v/Mikhail57/AndroidImageSlider.svg)](https://jitpack.io/#Mikhail57/AndroidImageSlider)
 
 This is based on daimajia's work. I changed it to use frescolib, and fixed some memory leaks.
  
@@ -10,11 +10,9 @@ And there are many kinds of amazing animations you can choose. :-D
  
 ## Demo
  
-![](http://ww3.sinaimg.cn/mw690/610dc034jw1egzor66ojdg20950fknpe.gif)
+![](https://giant.gfycat.com/AncientAmusedChinchilla.webm)
 
-[Download Apk](https://github.com/daimajia/AndroidImageSlider/releases/download/v1.0.8/demo-1.0.8.apk)
-
-This is the old original demo from daimajia
+[Download Apk](https://github.com/Mikhail57/AndroidImageSlider/releases/download/v1.1.6-beta/demo.apk)
  
 ## Usage
 
@@ -22,36 +20,25 @@ This is the old original demo from daimajia
 
 #### Gradle
 
+Add it in your root build.gradle at the end of repositories:
+
 ```groovy
-dependencies {
-    	compile 'com.android.support:support-v4:+'
-    	compile 'com.facebook.fresco:fresco:0.7.0+'
-    	compile 'com.nineoldandroids:library:2.4.0'
-    	compile 'com.amstronghuang.slider:library:1.1.3@aar'
+allprojects {
+    repositories {
+        ...
+        maven { url 'https://jitpack.io' }
+    }
 }
 ```
 
+Step 2. Add the dependency
 
-#### Maven
-
-```xml
-<dependency>
-    <groupId>com.facebook.fresco</groupId>
-    <artifactId>fresco</artifactId>
-    <version>0.7.0</version>
-</dependency>
-<dependency>
-    <groupId>com.nineoldandroids</groupId>
-    <artifactId>library</artifactId>
-    <version>2.4.0</version>
-</dependency>
-<dependency>
-    <groupId>com.amstronghuang.slider</groupId>
-    <artifactId>library</artifactId>
-    <version>1.1.3</version>
-    <type>apklib</type>
-</dependency>
+```groovy
+dependencies {
+    implementation 'com.github.Mikhail57:AndroidImageSlider:1.1.6-beta'
+}
 ```
+
 
 ### Step 2
 
@@ -73,7 +60,7 @@ If you want to load images from drawable, then no additional permissions are nec
 
 Add the Slider to your layout:
  
-```java
+```xml
 <com.daimajia.slider.library.SliderLayout
         android:id="@+id/slider"
         android:layout_width="match_parent"
@@ -83,7 +70,7 @@ Add the Slider to your layout:
  
 There are some default indicators. If you want to use a provided indicator:
  
-```java
+```xml
 <com.daimajia.slider.library.Indicators.PagerIndicator
         android:id="@+id/custom_indicator"
         android:layout_width="wrap_content"
@@ -98,17 +85,9 @@ There are some default indicators. If you want to use a provided indicator:
  
 ## Advanced usage
 
-Please visit [Wiki](https://github.com/daimajia/AndroidImageSlider/wiki)
+Please visit [Wiki](https://github.com/Mikhail57/AndroidImageSlider/wiki)
  
 ## Thanks
 
 - [FrescoLib](https://www.frescolib.org)
-- [NineOldAndroids](https://github.com/JakeWharton/NineOldAndroids)
 - [ViewPagerTransforms](https://github.com/ToxicBakery/ViewPagerTransforms)
-
-##About me
-
-If you get any problems when using this library, please feel free to [email me](mailto:chan32167@gmail.com).
-
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/chan32167/androidimageslider/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
